@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0E5732C6249A238D00573716 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E5732C5249A238D00573716 /* main.cpp */; };
+		0E5732D1249A23CA00573716 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5732CD249A23CA00573716 /* SDL2_image.framework */; };
+		0E5732D2249A23CA00573716 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5732CE249A23CA00573716 /* SDL2_mixer.framework */; };
+		0E5732D3249A23CA00573716 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5732CF249A23CA00573716 /* SDL2_ttf.framework */; };
+		0E5732D4249A23CA00573716 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5732D0249A23CA00573716 /* SDL2.framework */; };
+		0E5732D8249A25B400573716 /* SDLConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E5732D7249A25B400573716 /* SDLConfig.cpp */; };
+		0E5732E3249A2F8B00573716 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E5732E2249A2F8B00573716 /* Tile.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +31,15 @@
 /* Begin PBXFileReference section */
 		0E5732C2249A238D00573716 /* Tetris */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Tetris; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5732C5249A238D00573716 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0E5732CD249A23CA00573716 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		0E5732CE249A23CA00573716 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
+		0E5732CF249A23CA00573716 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
+		0E5732D0249A23CA00573716 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		0E5732D6249A253600573716 /* SDLConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDLConfig.h; sourceTree = "<group>"; };
+		0E5732D7249A25B400573716 /* SDLConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SDLConfig.cpp; sourceTree = "<group>"; };
+		0E5732DF249A2C3D00573716 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		0E5732E1249A2EE600573716 /* Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		0E5732E2249A2F8B00573716 /* Tile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E5732D1249A23CA00573716 /* SDL2_image.framework in Frameworks */,
+				0E5732D2249A23CA00573716 /* SDL2_mixer.framework in Frameworks */,
+				0E5732D3249A23CA00573716 /* SDL2_ttf.framework in Frameworks */,
+				0E5732D4249A23CA00573716 /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +62,7 @@
 			children = (
 				0E5732C4249A238D00573716 /* Tetris */,
 				0E5732C3249A238D00573716 /* Products */,
+				0E5732CC249A23CA00573716 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +78,48 @@
 			isa = PBXGroup;
 			children = (
 				0E5732C5249A238D00573716 /* main.cpp */,
+				0E5732D5249A250700573716 /* SDLConfig */,
+				0E5732E0249A2ECC00573716 /* Tile */,
+				0E5732DE249A2C2600573716 /* Common */,
 			);
 			path = Tetris;
+			sourceTree = "<group>";
+		};
+		0E5732CC249A23CA00573716 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E5732CD249A23CA00573716 /* SDL2_image.framework */,
+				0E5732CE249A23CA00573716 /* SDL2_mixer.framework */,
+				0E5732CF249A23CA00573716 /* SDL2_ttf.framework */,
+				0E5732D0249A23CA00573716 /* SDL2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0E5732D5249A250700573716 /* SDLConfig */ = {
+			isa = PBXGroup;
+			children = (
+				0E5732D7249A25B400573716 /* SDLConfig.cpp */,
+				0E5732D6249A253600573716 /* SDLConfig.h */,
+			);
+			path = SDLConfig;
+			sourceTree = "<group>";
+		};
+		0E5732DE249A2C2600573716 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0E5732DF249A2C3D00573716 /* Common.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0E5732E0249A2ECC00573716 /* Tile */ = {
+			isa = PBXGroup;
+			children = (
+				0E5732E2249A2F8B00573716 /* Tile.cpp */,
+				0E5732E1249A2EE600573716 /* Tile.h */,
+			);
+			path = Tile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +179,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E5732E3249A2F8B00573716 /* Tile.cpp in Sources */,
 				0E5732C6249A238D00573716 /* main.cpp in Sources */,
+				0E5732D8249A25B400573716 /* SDLConfig.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +301,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -247,6 +313,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
