@@ -15,6 +15,7 @@
 		0E5732D8249A25B400573716 /* SDLConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E5732D7249A25B400573716 /* SDLConfig.cpp */; };
 		0E5732E3249A2F8B00573716 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E5732E2249A2F8B00573716 /* Tile.cpp */; };
 		0E5732EA249A39FB00573716 /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E5732E9249A39FB00573716 /* Timer.cpp */; };
+		0E5732EC249A49C800573716 /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E5732EB249A49C800573716 /* Common.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,7 @@
 		0E5732E2249A2F8B00573716 /* Tile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
 		0E5732E6249A38D600573716 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		0E5732E9249A39FB00573716 /* Timer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		0E5732EB249A49C800573716 /* Common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Common.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 		0E5732DE249A2C2600573716 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0E5732EB249A49C800573716 /* Common.cpp */,
 				0E5732DF249A2C3D00573716 /* Common.h */,
 			);
 			path = Common;
@@ -195,6 +198,7 @@
 				0E5732E3249A2F8B00573716 /* Tile.cpp in Sources */,
 				0E5732C6249A238D00573716 /* main.cpp in Sources */,
 				0E5732D8249A25B400573716 /* SDLConfig.cpp in Sources */,
+				0E5732EC249A49C800573716 /* Common.cpp in Sources */,
 				0E5732EA249A39FB00573716 /* Timer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

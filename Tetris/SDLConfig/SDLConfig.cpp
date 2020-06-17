@@ -8,6 +8,16 @@
 
 #include "SDLConfig.h"
 
+// The window we will be rendering to
+SDL_Window *gWindow = NULL;
+
+// The window renderer
+SDL_Renderer *gRenderer = NULL;
+
+// Globally used font
+TTF_Font *gFont = NULL;
+
+
 bool init() {
     // Initialization flag
     bool success = true;
@@ -59,7 +69,11 @@ bool loadMedia() {
     // Loading success flag
     bool success = true;
     
-    // blabla
+    gFont = TTF_OpenFont("../Assets/lazy.ttf", 11);
+    if (gFont == NULL) {
+        printf("Failed to load lazy Font! SDL_ttf Error: %s\n", TTF_GetError());
+        success = false;
+    }
     
     return success;
 }

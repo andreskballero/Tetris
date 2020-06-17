@@ -9,20 +9,20 @@
 #ifndef SDLCONFIG_H
 #define SDLCONFIG_H
 
-#include "../Common/Common.h"
+#include "Common.h"
 
 #include "SDL2/SDL.h"
 #include "SDL2_image/SDL_image.h"
 #include "SDL2_ttf/SDL_ttf.h"
 
 // The window we will be rendering to
-SDL_Window *gWindow = NULL;
+extern SDL_Window *gWindow;
 
 // The window renderer
-SDL_Renderer *gRenderer = NULL;
+extern SDL_Renderer *gRenderer;
 
 // Globally used font
-TTF_Font *gFont = NULL;
+extern TTF_Font *gFont;
 
 // Starts SDL and creates window
 bool init();

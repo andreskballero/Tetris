@@ -10,8 +10,7 @@
 #define COMMON_H
 
 // Screen dimension constants
-const float ASPECT_RATIO = 16.0 / 9.0;
-const int SCREEN_WIDTH = 400;
-const float SCREEN_HEIGHT = SCREEN_WIDTH * ASPECT_RATIO;
-
+extern const float ASPECT_RATIO;
+extern const int SCREEN_WIDTH;
+extern const float SCREEN_HEIGHT;
 #endif
