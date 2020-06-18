@@ -13,4 +13,5 @@
 extern const float ASPECT_RATIO;
 extern const int SCREEN_WIDTH;
 extern const float SCREEN_HEIGHT;
+
 #endif
