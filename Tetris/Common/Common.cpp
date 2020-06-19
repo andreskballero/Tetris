@@ -9,5 +9,5 @@
 #include "Common.h"
 
 const float ASPECT_RATIO = 16.0 / 9.0;
-const int SCREEN_WIDTH = 400;
+const int SCREEN_WIDTH = 300;
 const float SCREEN_HEIGHT = SCREEN_WIDTH * ASPECT_RATIO;

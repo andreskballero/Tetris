@@ -11,8 +11,10 @@
 
 #define BOARD_ROWS 20
 #define BOARD_COLUMNS 10
+#define HALF_SECOND 500
 
 #include "Tile.h"
+#include "Timer.h"
 
 #include <string>
 
@@ -35,10 +37,13 @@ extern Tile tiles[TOTAL_TILES];
 // Load the textures needed
 bool loadTextures();
 
+// Initialize board
+void initializeBoard();
+
 // Draw board
 void drawBoard();
 
 // Piece drawer
-void drawTile(int *x, int *y, int *type);
+void drawTile(int *x, int *y, int *type, Timer *timer, int *seconds);
 
 #endif

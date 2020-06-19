@@ -41,14 +41,15 @@ int main(int argc, const char *argv[]) {
                 SDL_Color textColor = {0, 0, 0, 255};
                 
                 // Application timer
-                Timer fpsTimer;
+                Timer gameTimer;
                 
                 // In memory text stream
                 std::stringstream timeText;
                 
                 // Start counting FPS
                 int countedFrames = 0;
-                fpsTimer.start();
+                int seconds = 0;
+                gameTimer.start();
                 
                 // Timer texture
                 Tile FPSTexture;
@@ -60,11 +61,7 @@ int main(int argc, const char *argv[]) {
                 int type = rand() % TOTAL_TILES;
                 
                 // Initialize the board
-                for (int y = 0; y < BOARD_ROWS; ++y) {
-                    for (int x = 0; x < BOARD_COLUMNS; ++x) {
-                        board[y][x] = -1;
-                    }
-                }
+                initializeBoard();
                 
                 // Game loop
                 while (!quit) {
@@ -76,7 +73,7 @@ int main(int argc, const char *argv[]) {
                     }
                     
                     // Calculate and correct FPS
-                    float avgFPS = countedFrames / (fpsTimer.getTicks() / 1000.f);
+                    float avgFPS = countedFrames / (gameTimer.getTicks() / 1000.f);
                     if (avgFPS > 2000000) {
                         avgFPS = 0;
                     }
@@ -101,7 +98,7 @@ int main(int argc, const char *argv[]) {
                     drawBoard();
                     
                     // Draw current piece
-                    drawTile(&xActive, &yActive, &type);
+                    drawTile(&xActive, &yActive, &type, &gameTimer, &seconds);
                     
                     // Render textures
                     FPSTexture.render(0, 0);
