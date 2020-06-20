@@ -100,7 +100,12 @@ int main(int argc, const char *argv[]) {
                     // Draw current piece
                     drawTile(&xActive, &yActive, &type, &gameTimer, &seconds);
                     
-                    // Render textures
+                    // Check lines
+                    if (checkLine()) {
+                        updateColumns();
+                    }
+                    
+                    // Render FPS counter
                     FPSTexture.render(0, 0);
                     
                     // Update screen

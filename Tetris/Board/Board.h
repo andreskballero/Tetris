@@ -11,7 +11,7 @@
 
 #define BOARD_ROWS 20
 #define BOARD_COLUMNS 10
-#define HALF_SECOND 500
+#define HALF_SECOND 1//500
 
 #include "Tile.h"
 #include "Timer.h"
@@ -45,5 +45,11 @@ void drawBoard();
 
 // Piece drawer
 void drawTile(int *x, int *y, int *type, Timer *timer, int *seconds);
+
+// Line checker in charge of erasing the completed lines
+bool checkLine();
+
+// Column updater that is executed if one or more lines are erased
+void updateColumns();
 
 #endif
