@@ -10,6 +10,7 @@
 #include "SDLConfig.h"
 #include "Tile.h"
 #include "Board.h"
+#include "Controls.h"
 #include "Timer.h"
 
 #include "SDL2/SDL.h"
@@ -49,6 +50,7 @@ int main(int argc, const char *argv[]) {
                 // Start counting FPS
                 int countedFrames = 0;
                 int seconds = 0;
+                int acceleration = 0;
                 gameTimer.start();
                 
                 // Timer texture
@@ -56,21 +58,34 @@ int main(int argc, const char *argv[]) {
                 
                 // Active piece status
                 srand(time(NULL));
-                int xActive = rand() % BOARD_COLUMNS;
+                int shape = rand() % TOTAL_PIECES;
+                
+                int width = 0;
+                int widthAux = 0;
+                for (int i = 0; i < PIECE_SIDE; ++i) {
+                    for (int j = 0; j < PIECE_SIDE; ++j) {
+                        if (pieces[shape][i][j] != -1) {
+                            widthAux = j;
+                        }
+                    }
+                    if (widthAux > width) {
+                        width = widthAux;
+                    }
+                }
+                
+                int xActive = rand() % (BOARD_COLUMNS - width);
                 int yActive = 0;
-                int type = rand() % TOTAL_TILES;
+                
+                // Initialize the pieces
+                initializePieces();
                 
                 // Initialize the board
                 initializeBoard();
                 
                 // Game loop
                 while (!quit) {
-                    // Handle events on queue
-                    while (SDL_PollEvent(&e) != 0) {
-                        if (e.type == SDL_QUIT) {
-                            quit = true;
-                        }
-                    }
+                    // Handle the input
+                    movePiece(&e, &quit, &xActive, &yActive, &acceleration, shape);
                     
                     // Calculate and correct FPS
                     float avgFPS = countedFrames / (gameTimer.getTicks() / 1000.f);
@@ -98,11 +113,18 @@ int main(int argc, const char *argv[]) {
                     drawBoard();
                     
                     // Draw current piece
-                    drawTile(&xActive, &yActive, &type, &gameTimer, &seconds);
+                    //drawTile(&xActive, &yActive, &type, &gameTimer, &seconds);
                     
-                    // Check lines
-                    if (checkLine()) {
-                        updateColumns();
+                    // Draw current piece
+                    drawPiece(xActive, yActive, shape);
+                    
+                    // Check collisions
+                    if (checkCollision(&xActive, &yActive, &shape, &gameTimer, &seconds, acceleration)) {
+                        // If there has been a collision, check the lines
+                        if (checkLine()) {
+                            // If there is at least one complete line, update board columns
+                            updateColumns();
+                        }
                     }
                     
                     // Render FPS counter
@@ -110,7 +132,10 @@ int main(int argc, const char *argv[]) {
                     
                     // Update screen
                     SDL_RenderPresent(gRenderer);
+                    
+                    // Update variables
                     ++countedFrames;
+                    acceleration = 0;
                 }
             }
         }

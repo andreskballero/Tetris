@@ -12,6 +12,8 @@ int board[BOARD_ROWS][BOARD_COLUMNS];
 
 Tile tiles[TOTAL_TILES];
 
+int pieces[TOTAL_PIECES][PIECE_SIDE][PIECE_SIDE];
+
 
 bool loadTextures() {
     bool success = true;
@@ -44,6 +46,62 @@ bool loadTextures() {
     return success;
 }
 
+
+// Set the pieces to their initial values
+void initializePieces() {
+    // Initialize every piece array to -1
+    for (int x = 0; x < TOTAL_PIECES; ++x) {
+        for (int y = 0; y < PIECE_SIDE; ++y) {
+            for (int z = 0; z < PIECE_SIDE; ++z) {
+                pieces[x][y][z] = -1;
+            }
+        }
+    }
+    
+    // L piece
+    pieces[L][0][0] = BLUE;
+    pieces[L][1][0] = BLUE;
+    pieces[L][2][0] = BLUE;
+    pieces[L][2][1] = BLUE;
+    
+    // Inverse L piece
+    pieces[LINVERSE][0][1] = GREEN;
+    pieces[LINVERSE][1][1] = GREEN;
+    pieces[LINVERSE][2][1] = GREEN;
+    pieces[LINVERSE][2][0] = GREEN;
+    
+    // Z piece
+    pieces[Z][0][0] = ORANGE;
+    pieces[Z][0][1] = ORANGE;
+    pieces[Z][1][1] = ORANGE;
+    pieces[Z][1][2] = ORANGE;
+    
+    // Inverse Z piece
+    pieces[ZINVERSE][0][1] = RED;
+    pieces[ZINVERSE][0][2] = RED;
+    pieces[ZINVERSE][1][0] = RED;
+    pieces[ZINVERSE][1][1] = RED;
+    
+    // T piece
+    pieces[T][0][1] = VIOLET;
+    pieces[T][1][0] = VIOLET;
+    pieces[T][1][1] = VIOLET;
+    pieces[T][1][2] = VIOLET;
+    
+    // I piece
+    pieces[I][0][0] = YELLOW;
+    pieces[I][1][0] = YELLOW;
+    pieces[I][2][0] = YELLOW;
+    pieces[I][3][0] = YELLOW;
+    
+    // Square piece
+    pieces[SQUARE][0][0] = YELLOW;
+    pieces[SQUARE][0][1] = YELLOW;
+    pieces[SQUARE][1][0] = YELLOW;
+    pieces[SQUARE][1][1] = YELLOW;
+}
+
+
 // Set the whole board to -1 (empty position)
 void initializeBoard() {
     for (int y = 0; y < BOARD_ROWS; ++y) {
@@ -71,26 +129,60 @@ void drawBoard() {
 }
 
 
-// Draw the current active tile
-void drawTile(int *x, int *y, int *type, Timer *timer, int *seconds) {
-    // Render the tile in the current position
-    tiles[*type].render((SCREEN_WIDTH / BOARD_COLUMNS) * (*x), (SCREEN_HEIGHT / BOARD_ROWS) * (*y));
-    //  Wait half a second
-    if ((*timer).getTicks() - *seconds >= HALF_SECOND)
-    {
-        // If the tile has a tile underneath it or it is equal to the last row
-        // of the board, modify the board to make it stay in place
-        if (((*y < BOARD_ROWS - 1) && (board[(*y) + 1][*x] != -1)) || (*y == BOARD_ROWS-1)) {
-            board[*y][*x] = *type;
-            *x = rand() % BOARD_COLUMNS;
+void updateBoard(const int x, const int y, const int shape) {
+    // Update board (prolly in another function)
+    for (int i = 0; i < PIECE_SIDE; ++i) {
+        for (int j = 0; j < PIECE_SIDE; ++j) {
+            if (pieces[shape][i][j] != -1) {
+                board[y + i][x + j] = pieces[shape][i][j];
+            }
+        }
+    }
+}
+
+
+void drawPiece(const int x, const int y, const int shape) {
+    
+    for (int i = 0; i < PIECE_SIDE; ++i) {
+        for (int j = 0; j < PIECE_SIDE; j++) {
+            if (pieces[shape][i][j] != -1) {
+                int aux = pieces[shape][i][j];
+                tiles[aux].render((SCREEN_WIDTH / BOARD_COLUMNS) * (x + j), (SCREEN_HEIGHT / BOARD_ROWS) * (y + i));
+            }
+        }
+    }
+}
+
+
+bool checkCollision(int *x, int *y, int *shape, Timer *timer, int *seconds, const int acceleration) {
+    // If half a second has passed
+    if ((*timer).getTicks() - *seconds >= HALF_SECOND - acceleration) {
+        if (!tentativePosition(*x, *y + 1, *shape)) {
+            updateBoard(*x, *y, *shape);
+            *shape = rand() % TOTAL_PIECES;
+            int width = 0;
+            int widthAux = 0;
+            for (int i = 0; i < PIECE_SIDE; ++i) {
+                for (int j = 0; j < PIECE_SIDE; ++j) {
+                    if (pieces[*shape][i][j] != -1) {
+                        widthAux = j;
+                    }
+                }
+                if (widthAux > width) {
+                    width = widthAux;
+                }
+            }
+            *x = rand() % (BOARD_COLUMNS - width);
             *y = 0;
-            *type = rand() % TOTAL_TILES;
+            return true;
         } else {
             // Reset second counter and increment y for the next iteration
             *seconds = (*timer).getTicks();
             ++(*y);
         }
     }
+    
+    return false;
 }
 
 
@@ -149,4 +241,24 @@ void updateColumns() {
             update = true;
         }
     }
+}
+
+
+// Tentative position
+bool tentativePosition(const int x, const int y, const int shape) {
+    for (int i = 0; i < PIECE_SIDE; ++i) {
+        int yAux = y + i;
+        for (int j = 0; j < PIECE_SIDE; ++j) {
+            int xAux = x + j;
+            // If the piece is gonna collide with another,
+            // the piece is out of y bounds or the piece
+            // is out of x bounds, is not a valid position
+            if ((pieces[shape][i][j] != -1 && board[yAux][xAux] != -1) ||
+                (pieces[shape][i][j] != -1 && yAux > BOARD_ROWS - 1) ||
+                (x < 0 || x >= BOARD_COLUMNS)) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

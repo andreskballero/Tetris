@@ -9,10 +9,8 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#define BOARD_ROWS 20
-#define BOARD_COLUMNS 10
-#define HALF_SECOND 1//500
 
+#include "Common.h"
 #include "Tile.h"
 #include "Timer.h"
 
@@ -29,13 +27,28 @@ enum GameTiles {
     TOTAL_TILES
 };
 
+enum GamePieces {
+    L,
+    LINVERSE,
+    Z,
+    ZINVERSE,
+    T,
+    I,
+    SQUARE
+};
+
 // Game board
 extern int board[BOARD_ROWS][BOARD_COLUMNS];
 // SDL_Textures from the images
 extern Tile tiles[TOTAL_TILES];
+// 4x4 arrays to hold the pieces
+extern int pieces[TOTAL_PIECES][PIECE_SIDE][PIECE_SIDE];
 
 // Load the textures needed
 bool loadTextures();
+
+// Initialize the pieces
+void initializePieces();
 
 // Initialize board
 void initializeBoard();
@@ -43,13 +56,22 @@ void initializeBoard();
 // Draw board
 void drawBoard();
 
+// Update the board to draw the new piece
+void updateBoard(const int x, const int y, const int shape);
+
 // Piece drawer
-void drawTile(int *x, int *y, int *type, Timer *timer, int *seconds);
+void drawPiece(const int x, const int y, const int shape);
+
+// Collision checker
+bool checkCollision(int *x, int *y, int *shape, Timer *timer, int *seconds, const int acceleration);
 
 // Line checker in charge of erasing the completed lines
 bool checkLine();
 
 // Column updater that is executed if one or more lines are erased
 void updateColumns();
+
+// Returns true if the future position is valid for placing the piece
+bool tentativePosition(const int x, const int y, const int shape);
 
 #endif
