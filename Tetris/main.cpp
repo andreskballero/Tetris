@@ -59,21 +59,8 @@ int main(int argc, const char *argv[]) {
                 // Active piece status
                 srand(time(NULL));
                 int shape = rand() % TOTAL_PIECES;
-                
-                int width = 0;
-                int widthAux = 0;
-                for (int i = 0; i < PIECE_SIDE; ++i) {
-                    for (int j = 0; j < PIECE_SIDE; ++j) {
-                        if (pieces[shape][i][j] != -1) {
-                            widthAux = j;
-                        }
-                    }
-                    if (widthAux > width) {
-                        width = widthAux;
-                    }
-                }
-                
-                int xActive = rand() % (BOARD_COLUMNS - width);
+                int rotation = rand() % ROTATIONS;
+                int xActive = rand() % (BOARD_COLUMNS - calculatePieceWidth(shape, rotation));
                 int yActive = 0;
                 
                 // Initialize the pieces
@@ -85,7 +72,7 @@ int main(int argc, const char *argv[]) {
                 // Game loop
                 while (!quit) {
                     // Handle the input
-                    movePiece(&e, &quit, &xActive, &yActive, &acceleration, shape);
+                    movePiece(&e, &quit, &xActive, &yActive, &rotation, &acceleration, shape);
                     
                     // Calculate and correct FPS
                     float avgFPS = countedFrames / (gameTimer.getTicks() / 1000.f);
@@ -116,10 +103,10 @@ int main(int argc, const char *argv[]) {
                     //drawTile(&xActive, &yActive, &type, &gameTimer, &seconds);
                     
                     // Draw current piece
-                    drawPiece(xActive, yActive, shape);
+                    drawPiece(xActive, yActive, shape, rotation);
                     
                     // Check collisions
-                    if (checkCollision(&xActive, &yActive, &shape, &gameTimer, &seconds, acceleration)) {
+                    if (checkCollision(&xActive, &yActive, &shape, &rotation, &gameTimer, &seconds, acceleration)) {
                         // If there has been a collision, check the lines
                         if (checkLine()) {
                             // If there is at least one complete line, update board columns

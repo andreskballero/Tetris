@@ -12,7 +12,7 @@ int board[BOARD_ROWS][BOARD_COLUMNS];
 
 Tile tiles[TOTAL_TILES];
 
-int pieces[TOTAL_PIECES][PIECE_SIDE][PIECE_SIDE];
+int pieces[TOTAL_PIECES][PIECE_SIDE][PIECE_SIDE][ROTATIONS];
 
 
 bool loadTextures() {
@@ -53,52 +53,159 @@ void initializePieces() {
     for (int x = 0; x < TOTAL_PIECES; ++x) {
         for (int y = 0; y < PIECE_SIDE; ++y) {
             for (int z = 0; z < PIECE_SIDE; ++z) {
-                pieces[x][y][z] = -1;
+                for (int r = 0; r < ROTATIONS; ++r){
+                    pieces[x][y][z][r] = -1;
+                }
             }
         }
     }
     
     // L piece
-    pieces[L][0][0] = BLUE;
-    pieces[L][1][0] = BLUE;
-    pieces[L][2][0] = BLUE;
-    pieces[L][2][1] = BLUE;
+    pieces[L][0][0][0] = BLUE;
+    pieces[L][1][0][0] = BLUE;
+    pieces[L][2][0][0] = BLUE;
+    pieces[L][2][1][0] = BLUE;
+    
+    pieces[L][0][0][1] = BLUE;
+    pieces[L][0][1][1] = BLUE;
+    pieces[L][0][2][1] = BLUE;
+    pieces[L][1][0][1] = BLUE;
+    
+    pieces[L][0][0][2] = BLUE;
+    pieces[L][0][1][2] = BLUE;
+    pieces[L][1][1][2] = BLUE;
+    pieces[L][2][1][2] = BLUE;
+    
+    pieces[L][0][2][3] = BLUE;
+    pieces[L][1][0][3] = BLUE;
+    pieces[L][1][1][3] = BLUE;
+    pieces[L][1][2][3] = BLUE;
     
     // Inverse L piece
-    pieces[LINVERSE][0][1] = GREEN;
-    pieces[LINVERSE][1][1] = GREEN;
-    pieces[LINVERSE][2][1] = GREEN;
-    pieces[LINVERSE][2][0] = GREEN;
+    pieces[LINVERSE][0][1][0] = GREEN;
+    pieces[LINVERSE][1][1][0] = GREEN;
+    pieces[LINVERSE][2][1][0] = GREEN;
+    pieces[LINVERSE][2][0][0] = GREEN;
+    
+    pieces[LINVERSE][0][0][1] = GREEN;
+    pieces[LINVERSE][1][0][1] = GREEN;
+    pieces[LINVERSE][1][1][1] = GREEN;
+    pieces[LINVERSE][1][2][1] = GREEN;
+    
+    pieces[LINVERSE][0][0][2] = GREEN;
+    pieces[LINVERSE][0][1][2] = GREEN;
+    pieces[LINVERSE][1][0][2] = GREEN;
+    pieces[LINVERSE][2][0][2] = GREEN;
+    
+    pieces[LINVERSE][0][0][3] = GREEN;
+    pieces[LINVERSE][0][1][3] = GREEN;
+    pieces[LINVERSE][0][2][3] = GREEN;
+    pieces[LINVERSE][1][2][3] = GREEN;
     
     // Z piece
-    pieces[Z][0][0] = ORANGE;
-    pieces[Z][0][1] = ORANGE;
-    pieces[Z][1][1] = ORANGE;
-    pieces[Z][1][2] = ORANGE;
+    pieces[Z][0][0][0] = ORANGE;
+    pieces[Z][0][1][0] = ORANGE;
+    pieces[Z][1][1][0] = ORANGE;
+    pieces[Z][1][2][0] = ORANGE;
+    
+    pieces[Z][0][1][1] = ORANGE;
+    pieces[Z][1][1][1] = ORANGE;
+    pieces[Z][1][0][1] = ORANGE;
+    pieces[Z][2][0][1] = ORANGE;
+    
+    pieces[Z][0][0][2] = ORANGE;
+    pieces[Z][0][1][2] = ORANGE;
+    pieces[Z][1][1][2] = ORANGE;
+    pieces[Z][1][2][2] = ORANGE;
+    
+    pieces[Z][0][1][3] = ORANGE;
+    pieces[Z][1][1][3] = ORANGE;
+    pieces[Z][1][0][3] = ORANGE;
+    pieces[Z][2][0][3] = ORANGE;
     
     // Inverse Z piece
-    pieces[ZINVERSE][0][1] = RED;
-    pieces[ZINVERSE][0][2] = RED;
-    pieces[ZINVERSE][1][0] = RED;
-    pieces[ZINVERSE][1][1] = RED;
+    pieces[ZINVERSE][0][1][0] = RED;
+    pieces[ZINVERSE][0][2][0] = RED;
+    pieces[ZINVERSE][1][0][0] = RED;
+    pieces[ZINVERSE][1][1][0] = RED;
+    
+    pieces[ZINVERSE][0][0][1] = RED;
+    pieces[ZINVERSE][1][0][1] = RED;
+    pieces[ZINVERSE][1][1][1] = RED;
+    pieces[ZINVERSE][2][1][1] = RED;
+    
+    pieces[ZINVERSE][0][1][2] = RED;
+    pieces[ZINVERSE][0][2][2] = RED;
+    pieces[ZINVERSE][1][0][2] = RED;
+    pieces[ZINVERSE][1][1][2] = RED;
+    
+    pieces[ZINVERSE][0][0][3] = RED;
+    pieces[ZINVERSE][1][0][3] = RED;
+    pieces[ZINVERSE][1][1][3] = RED;
+    pieces[ZINVERSE][2][1][3] = RED;
     
     // T piece
-    pieces[T][0][1] = VIOLET;
-    pieces[T][1][0] = VIOLET;
-    pieces[T][1][1] = VIOLET;
-    pieces[T][1][2] = VIOLET;
+    pieces[T][0][1][0] = VIOLET;
+    pieces[T][1][0][0] = VIOLET;
+    pieces[T][1][1][0] = VIOLET;
+    pieces[T][1][2][0] = VIOLET;
+    
+    pieces[T][0][0][1] = VIOLET;
+    pieces[T][1][0][1] = VIOLET;
+    pieces[T][2][0][1] = VIOLET;
+    pieces[T][1][1][1] = VIOLET;
+    
+    pieces[T][0][0][2] = VIOLET;
+    pieces[T][0][1][2] = VIOLET;
+    pieces[T][0][2][2] = VIOLET;
+    pieces[T][1][1][2] = VIOLET;
+    
+    pieces[T][0][1][3] = VIOLET;
+    pieces[T][1][1][3] = VIOLET;
+    pieces[T][2][1][3] = VIOLET;
+    pieces[T][1][0][3] = VIOLET;
     
     // I piece
-    pieces[I][0][0] = YELLOW;
-    pieces[I][1][0] = YELLOW;
-    pieces[I][2][0] = YELLOW;
-    pieces[I][3][0] = YELLOW;
+    pieces[I][0][0][0] = YELLOW;
+    pieces[I][1][0][0] = YELLOW;
+    pieces[I][2][0][0] = YELLOW;
+    pieces[I][3][0][0] = YELLOW;
+    
+    pieces[I][0][0][1] = YELLOW;
+    pieces[I][0][1][1] = YELLOW;
+    pieces[I][0][2][1] = YELLOW;
+    pieces[I][0][3][1] = YELLOW;
+    
+    pieces[I][0][0][2] = YELLOW;
+    pieces[I][1][0][2] = YELLOW;
+    pieces[I][2][0][2] = YELLOW;
+    pieces[I][3][0][2] = YELLOW;
+    
+    pieces[I][0][0][3] = YELLOW;
+    pieces[I][0][1][3] = YELLOW;
+    pieces[I][0][2][3] = YELLOW;
+    pieces[I][0][3][3] = YELLOW;
     
     // Square piece
-    pieces[SQUARE][0][0] = YELLOW;
-    pieces[SQUARE][0][1] = YELLOW;
-    pieces[SQUARE][1][0] = YELLOW;
-    pieces[SQUARE][1][1] = YELLOW;
+    pieces[SQUARE][0][0][0] = YELLOW;
+    pieces[SQUARE][0][1][0] = YELLOW;
+    pieces[SQUARE][1][0][0] = YELLOW;
+    pieces[SQUARE][1][1][0] = YELLOW;
+    
+    pieces[SQUARE][0][0][1] = YELLOW;
+    pieces[SQUARE][0][1][1] = YELLOW;
+    pieces[SQUARE][1][0][1] = YELLOW;
+    pieces[SQUARE][1][1][1] = YELLOW;
+    
+    pieces[SQUARE][0][0][2] = YELLOW;
+    pieces[SQUARE][0][1][2] = YELLOW;
+    pieces[SQUARE][1][0][2] = YELLOW;
+    pieces[SQUARE][1][1][2] = YELLOW;
+    
+    pieces[SQUARE][0][0][3] = YELLOW;
+    pieces[SQUARE][0][1][3] = YELLOW;
+    pieces[SQUARE][1][0][3] = YELLOW;
+    pieces[SQUARE][1][1][3] = YELLOW;
 }
 
 
@@ -129,24 +236,24 @@ void drawBoard() {
 }
 
 
-void updateBoard(const int x, const int y, const int shape) {
+void updateBoard(const int x, const int y, const int shape, const int rotation) {
     // Update board (prolly in another function)
     for (int i = 0; i < PIECE_SIDE; ++i) {
         for (int j = 0; j < PIECE_SIDE; ++j) {
-            if (pieces[shape][i][j] != -1) {
-                board[y + i][x + j] = pieces[shape][i][j];
+            if (pieces[shape][i][j][rotation] != -1) {
+                board[y + i][x + j] = pieces[shape][i][j][rotation];
             }
         }
     }
 }
 
 
-void drawPiece(const int x, const int y, const int shape) {
+void drawPiece(const int x, const int y, const int shape, const int rotation) {
     
     for (int i = 0; i < PIECE_SIDE; ++i) {
         for (int j = 0; j < PIECE_SIDE; j++) {
-            if (pieces[shape][i][j] != -1) {
-                int aux = pieces[shape][i][j];
+            if (pieces[shape][i][j][rotation] != -1) {
+                int aux = pieces[shape][i][j][rotation];
                 tiles[aux].render((SCREEN_WIDTH / BOARD_COLUMNS) * (x + j), (SCREEN_HEIGHT / BOARD_ROWS) * (y + i));
             }
         }
@@ -154,25 +261,14 @@ void drawPiece(const int x, const int y, const int shape) {
 }
 
 
-bool checkCollision(int *x, int *y, int *shape, Timer *timer, int *seconds, const int acceleration) {
+bool checkCollision(int *x, int *y, int *shape, int *rotation, Timer *timer, int *seconds, const int acceleration) {
     // If half a second has passed
     if ((*timer).getTicks() - *seconds >= HALF_SECOND - acceleration) {
-        if (!tentativePosition(*x, *y + 1, *shape)) {
-            updateBoard(*x, *y, *shape);
+        if (!tentativePosition(*x, *y + 1, *shape, *rotation)) {
+            updateBoard(*x, *y, *shape, *rotation);
             *shape = rand() % TOTAL_PIECES;
-            int width = 0;
-            int widthAux = 0;
-            for (int i = 0; i < PIECE_SIDE; ++i) {
-                for (int j = 0; j < PIECE_SIDE; ++j) {
-                    if (pieces[*shape][i][j] != -1) {
-                        widthAux = j;
-                    }
-                }
-                if (widthAux > width) {
-                    width = widthAux;
-                }
-            }
-            *x = rand() % (BOARD_COLUMNS - width);
+            *rotation = rand() % ROTATIONS;
+            *x = rand() % (BOARD_COLUMNS - calculatePieceWidth(*shape, *rotation));
             *y = 0;
             return true;
         } else {
@@ -221,8 +317,8 @@ bool checkLine() {
 void updateColumns() {
     bool update = true;
     
-    // Runs the whole board starting from the bottom left
-    for (int y = BOARD_ROWS - 1; y >= 0; --y) {
+    // Runs the whole board
+    for (int y = 0; y < BOARD_ROWS; ++y) {
         for (int x = 0; x < BOARD_COLUMNS; ++x) {
             // If the whole line is -1, bring down the columns from
             // that line up
@@ -245,7 +341,7 @@ void updateColumns() {
 
 
 // Tentative position
-bool tentativePosition(const int x, const int y, const int shape) {
+bool tentativePosition(const int x, const int y, const int shape, const int rotation) {
     for (int i = 0; i < PIECE_SIDE; ++i) {
         int yAux = y + i;
         for (int j = 0; j < PIECE_SIDE; ++j) {
@@ -253,12 +349,30 @@ bool tentativePosition(const int x, const int y, const int shape) {
             // If the piece is gonna collide with another,
             // the piece is out of y bounds or the piece
             // is out of x bounds, is not a valid position
-            if ((pieces[shape][i][j] != -1 && board[yAux][xAux] != -1) ||
-                (pieces[shape][i][j] != -1 && yAux > BOARD_ROWS - 1) ||
+            if ((pieces[shape][i][j][rotation] != -1 && board[yAux][xAux] != -1) ||
+                (pieces[shape][i][j][rotation] != -1 && yAux > BOARD_ROWS - 1) ||
                 (x < 0 || x >= BOARD_COLUMNS)) {
                 return false;
             }
         }
     }
     return true;
+}
+
+
+// Calculates the piece width
+int calculatePieceWidth(const int shape, const int rotation) {
+    int width = 0;
+    int widthAux = 0;
+    for (int i = 0; i < PIECE_SIDE; ++i) {
+        for (int j = 0; j < PIECE_SIDE; ++j) {
+            if (pieces[shape][i][j][rotation] != -1) {
+                widthAux = j;
+            }
+        }
+        if (widthAux > width) {
+            width = widthAux;
+        }
+    }
+    return width;
 }

@@ -11,6 +11,7 @@
 
 #define TOTAL_PIECES 7
 #define PIECE_SIDE 4
+#define ROTATIONS 4
 #define BOARD_ROWS 20
 #define BOARD_COLUMNS 10
 #define HALF_SECOND 500

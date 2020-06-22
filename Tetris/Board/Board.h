@@ -42,7 +42,7 @@ extern int board[BOARD_ROWS][BOARD_COLUMNS];
 // SDL_Textures from the images
 extern Tile tiles[TOTAL_TILES];
 // 4x4 arrays to hold the pieces
-extern int pieces[TOTAL_PIECES][PIECE_SIDE][PIECE_SIDE];
+extern int pieces[TOTAL_PIECES][PIECE_SIDE][PIECE_SIDE][ROTATIONS];
 
 // Load the textures needed
 bool loadTextures();
@@ -57,13 +57,13 @@ void initializeBoard();
 void drawBoard();
 
 // Update the board to draw the new piece
-void updateBoard(const int x, const int y, const int shape);
+void updateBoard(const int x, const int y, const int shape, const int rotation);
 
 // Piece drawer
-void drawPiece(const int x, const int y, const int shape);
+void drawPiece(const int x, const int y, const int shape, const int rotation);
 
 // Collision checker
-bool checkCollision(int *x, int *y, int *shape, Timer *timer, int *seconds, const int acceleration);
+bool checkCollision(int *x, int *y, int *shape, int *rotation, Timer *timer, int *seconds, const int acceleration);
 
 // Line checker in charge of erasing the completed lines
 bool checkLine();
@@ -72,6 +72,9 @@ bool checkLine();
 void updateColumns();
 
 // Returns true if the future position is valid for placing the piece
-bool tentativePosition(const int x, const int y, const int shape);
+bool tentativePosition(const int x, const int y, const int shape, const int rotation);
+
+// Calculates the piece width
+int calculatePieceWidth(const int shape, const int rotation);
 
 #endif

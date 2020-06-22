@@ -10,9 +10,10 @@
 #define CONTROLS_H
 
 #include "Common.h"
+#include "Board.h"
 
 #include "SDL2/SDL.h"
 
-void movePiece(SDL_Event *e, bool *quit, int *x, int *y, int *acceleration, const int shape);
+void movePiece(SDL_Event *e, bool *quit, int *x, int *y, int *rotation, int *acceleration, const int shape);
 
 #endif
