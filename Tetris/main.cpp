@@ -49,8 +49,6 @@ int main(int argc, const char *argv[]) {
                 
                 // Start counting FPS
                 int countedFrames = 0;
-                int seconds = 0;
-                int acceleration = 0;
                 gameTimer.start();
                 
                 // Timer texture
@@ -58,6 +56,8 @@ int main(int argc, const char *argv[]) {
                 
                 // Active piece status
                 srand(time(NULL));
+                int seconds = 0;
+                int acceleration = 0;
                 int shape = rand() % TOTAL_PIECES;
                 int rotation = rand() % ROTATIONS;
                 int xActive = rand() % (BOARD_COLUMNS - calculatePieceWidth(shape, rotation));
@@ -92,19 +92,6 @@ int main(int argc, const char *argv[]) {
                         printf("Unable to render FPS texture!\n");
                     }
                     
-                    // Clear screen
-                    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-                    SDL_RenderClear(gRenderer);
-                    
-                    // Draw board
-                    drawBoard();
-                    
-                    // Draw current piece
-                    //drawTile(&xActive, &yActive, &type, &gameTimer, &seconds);
-                    
-                    // Draw current piece
-                    drawPiece(xActive, yActive, shape, rotation);
-                    
                     // Check collisions
                     if (checkCollision(&xActive, &yActive, &shape, &rotation, &gameTimer, &seconds, acceleration)) {
                         // If there has been a collision, check the lines
@@ -113,6 +100,22 @@ int main(int argc, const char *argv[]) {
                             updateColumns();
                         }
                     }
+                    
+                    // Instead of exiting the game, reset the board
+                    if (gameOver()) {
+                        //quit = true;
+                        initializeBoard();
+                    }
+                    
+                    // Clear screen
+                    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+                    SDL_RenderClear(gRenderer);
+                    
+                    // Draw board
+                    drawBoard();
+                    
+                    // Draw current piece
+                    drawPiece(xActive, yActive, shape, rotation);
                     
                     // Render FPS counter
                     FPSTexture.render(0, 0);

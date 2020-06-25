@@ -376,3 +376,13 @@ int calculatePieceWidth(const int shape, const int rotation) {
     }
     return width;
 }
+
+
+bool gameOver() {
+    for (int x = 0; x < BOARD_COLUMNS; ++x) {
+        if (board[0][x] != -1) {
+            return true;
+        }
+    }
+    return false;
+}

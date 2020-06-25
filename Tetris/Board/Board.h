@@ -77,4 +77,7 @@ bool tentativePosition(const int x, const int y, const int shape, const int rota
 // Calculates the piece width
 int calculatePieceWidth(const int shape, const int rotation);
 
+// Check if there is a game over condition
+bool gameOver();
+
 #endif
